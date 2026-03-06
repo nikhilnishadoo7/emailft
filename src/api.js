@@ -1,5 +1,7 @@
+const API_BASE = "http://13.202.73.38";
+
 export async function sendOtp(email) {
-  const res = await fetch("/api/v1.0.1/otp/send", {
+  const res = await fetch(`${API_BASE}/v1.0.1/otp/send`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -8,16 +10,12 @@ export async function sendOtp(email) {
     body: JSON.stringify({ email })
   });
 
-  if (!res.ok) {
-    const error = await res.text();
-    throw new Error(error);
-  }
-
-  return await res.json();
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
 }
 
 export async function verifyOtp(email, otp) {
-  const res = await fetch("/api/v1.0.1/otp/verify", {
+  const res = await fetch(`${API_BASE}/v1.0.1/otp/verify`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
