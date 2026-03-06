@@ -1,5 +1,9 @@
 {
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "http://13.202.73.38/$1"
+    },
     { "handle": "filesystem" },
     { "src": "/.*", "dest": "/index.html" }
   ]
