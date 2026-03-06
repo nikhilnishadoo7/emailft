@@ -10,12 +10,18 @@ export async function sendOtp(email) {
     body: JSON.stringify({ email })
   });
 
+  const contentType = res.headers.get("content-type");
+
   if (!res.ok) {
     const error = await res.text();
     throw new Error(error);
   }
 
-  return await res.json();
+  if (contentType && contentType.includes("application/json")) {
+    return await res.json();
+  }
+
+  return await res.text();
 }
 
 export async function verifyOtp(email, otp) {
@@ -28,10 +34,16 @@ export async function verifyOtp(email, otp) {
     body: JSON.stringify({ email, otp })
   });
 
+  const contentType = res.headers.get("content-type");
+
   if (!res.ok) {
     const error = await res.text();
     throw new Error(error);
   }
 
-  return await res.json();
+  if (contentType && contentType.includes("application/json")) {
+    return await res.json();
+  }
+
+  return await res.text();
 }
