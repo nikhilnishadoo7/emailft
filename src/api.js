@@ -1,4 +1,4 @@
-const API_BASE = "http://13.202.73.38";
+const API_BASE = "/api";
 
 export async function sendOtp(email) {
   const res = await fetch(`${API_BASE}/v1.0.1/otp/send`, {
@@ -10,8 +10,12 @@ export async function sendOtp(email) {
     body: JSON.stringify({ email })
   });
 
-  if (!res.ok) throw new Error(await res.text());
-  return res.json();
+  if (!res.ok) {
+    const error = await res.text();
+    throw new Error(error);
+  }
+
+  return await res.json();
 }
 
 export async function verifyOtp(email, otp) {
