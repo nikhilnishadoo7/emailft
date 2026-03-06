@@ -1,4 +1,4 @@
-const API_BASE = "/api";
+const API_BASE = "https://emailft.vercel.app"";
 
 export async function sendOtp(email) {
   const res = await fetch(`${API_BASE}/v1.0.1/otp/send`, {
