@@ -1,4 +1,23 @@
-const API_BASE = "http://13.202.73.38/api";
+const API_BASE = "/api";
+
+async function handleResponse(res) {
+  const contentType = res.headers.get("content-type");
+
+  let data;
+
+  if (contentType && contentType.includes("application/json")) {
+    data = await res.json();
+  } else {
+    data = await res.text();
+  }
+
+  if (!res.ok) {
+    const message = data?.message || data || "Something went wrong";
+    throw new Error(message);
+  }
+
+  return data;
+}
 
 export async function sendOtp(email) {
   const res = await fetch(`${API_BASE}/v1.0.1/otp/send`, {
@@ -10,18 +29,7 @@ export async function sendOtp(email) {
     body: JSON.stringify({ email })
   });
 
-  const contentType = res.headers.get("content-type");
-
-  if (!res.ok) {
-    const error = await res.text();
-    throw new Error(error);
-  }
-
-  if (contentType && contentType.includes("application/json")) {
-    return await res.json();
-  }
-
-  return await res.text();
+  return handleResponse(res);
 }
 
 export async function verifyOtp(email, otp) {
@@ -34,16 +42,5 @@ export async function verifyOtp(email, otp) {
     body: JSON.stringify({ email, otp })
   });
 
-  const contentType = res.headers.get("content-type");
-
-  if (!res.ok) {
-    const error = await res.text();
-    throw new Error(error);
-  }
-
-  if (contentType && contentType.includes("application/json")) {
-    return await res.json();
-  }
-
-  return await res.text();
+  return handleResponse(res);
 }
