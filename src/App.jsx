@@ -44,9 +44,8 @@ function App() {
   };
 
   return (
-    <div className="page">
-
-      <div className="container">
+      <div className="page">
+    <div className="container">
 
         <h2>Email OTP Verification</h2>
 
