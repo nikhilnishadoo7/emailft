@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { sendOtp, verifyOtp } from "./api";
+import "./App.css";
 
 function App() {
 
@@ -27,7 +28,7 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "40px" }}>
+    <div className="container">
 
       <h2>Email OTP Verification</h2>
 
