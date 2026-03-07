@@ -1,4 +1,4 @@
-const API_BASE = "http://13.202.73.38/api";
+const API_BASE = "http://13.202.73.38/email";
 
 async function handleResponse(res) {
   const contentType = res.headers.get("content-type");
